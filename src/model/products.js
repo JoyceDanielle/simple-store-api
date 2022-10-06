@@ -19,7 +19,7 @@ const products = sequelize.define('products', {
         allowNull: false
     },
     category: {
-        type: Sequelize.ENUM('eletrônico', 'livro', 'casa', 'móveis', 'eletrodoméstico', 'música'),
+        type: Sequelize.ENUM('eletronico', 'livro', 'casa', 'movel', 'eletrodomestico', 'musica'),
         allowNull: false
     }
 })

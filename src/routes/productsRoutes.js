@@ -53,6 +53,14 @@ Router.post('/', upload.single('img'), async (req, res)=>{
     }
 })
 
+Router.delete('/:id', async (req, res)=>{
+    try {
+        const product = await products.destroy({where: {id: req.params.id}})
+        res.json({success: true, product: product})
+    } catch (error) {
+        res.json({success: false, messsage: error.stack})
+    }
+})
 
 
 module.exports = Router;

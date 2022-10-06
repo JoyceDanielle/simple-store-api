@@ -15,13 +15,19 @@ Router.get('/', async (req, res)=>{
 
 Router.post('/', async (req, res)=>{
     try {
-        const hash = bcrypt.hashSync(req.body.password, 10)
-        const user = await userModel.create({
-            user: req.body.user,
-            password: hash,
-            name: req.body.name
-        })
-        res.json(user)
+        const findUser = await userModel.findOne({where:{user : req.body.user}})
+        if(findUser){
+            res.json({message: 'e-mail já cadastrado', success: false})
+        }else{
+            const hash = bcrypt.hashSync(req.body.password, 10)
+            const user = await userModel.create({
+                user: req.body.user,
+                password: hash,
+                name: req.body.name
+            })
+            res.json({user: user, success: true})
+        }
+        
     } catch (error) {
         res.json({message: error.stack, success: false})
     }

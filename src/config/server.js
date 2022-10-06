@@ -4,13 +4,11 @@ const cookieparser = require('cookie-parser');
 const productsRoutes = require('../routes/productsRoutes');
 const authRoutes = require('../routes/authRoutes');
 const userRoutes = require('../routes/userRoutes');
+const cartRoutes = require('../routes/cartRoutes');
 const database = require('./database');
+require('../model/association');
 
 const app = express();
-
-database.sync({
-    force: false
-})
 
 app.use((req, res, next) => {
     res.append('Access-Control-Allow-Origin', 'http://localhost:3001');
@@ -31,5 +29,6 @@ app.use(cookieparser());
 app.use('/auth', authRoutes)
 app.use('/user', userRoutes)
 app.use('/products', productsRoutes)
+app.use('/cart', cartRoutes)
 
 app.listen(3000)
